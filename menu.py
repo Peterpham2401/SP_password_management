@@ -8,6 +8,7 @@ from getpass import getpass
 def login():
     input_pass = getpass(prompt='Enter 4 number pass to unlock:')
     if vertify(input_pass) == True:
+        database_manager.create_database()
         print('Unlock succesfull!!')
         clear()
         return True

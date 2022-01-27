@@ -21,7 +21,6 @@ def get_AppName(app_name):
     except(Exception, sqlite3.Error) as error:
         print(error)
 
-
 def get_UserName(app_name):
     try:
         connection = connectDB()
@@ -37,7 +36,6 @@ def get_UserName(app_name):
         return list_user
     except(Exception, sqlite3.Error) as error:
         print(error)
-
 
 def get_PassWordbyApp(app_name):
     try:
@@ -55,7 +53,6 @@ def get_PassWordbyApp(app_name):
     except(Exception, sqlite3.Error) as error:
         print(error)
 
-
 def get_PassWordbyUser(username):
     try:
         connection = connectDB()
@@ -71,7 +68,6 @@ def get_PassWordbyUser(username):
         return list_password
     except(Exception, sqlite3.Error) as error:
         print(error)
-
 
 def checkExists(app_name):
     try:
@@ -92,7 +88,6 @@ def checkExists(app_name):
         connection.commit()
         cursor.close()
 
-
 def connectDB():
     try:
         connection = sqlite3.connect('PasswordManager.sqlite')
@@ -100,8 +95,24 @@ def connectDB():
     except(Exception, sqlite3.Error) as error:
         print(error)
 
-
 # Main Function
+
+def create_database():
+    try:
+        connection = connectDB()
+        cursor = connection.cursor()
+        create_query = """CREATE TABLE account(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            UserName TEXT NOT NULL,
+            Password TEXT NOT NULL,
+            Url TEXT NOT NULL,
+            App_Name TEXT NOT NULL
+        ); """
+        cursor.execute(create_query)
+        connection.commit()
+        cursor.close()
+    except (Exception, sqlite3.Error) as error:
+        print(error)
 
 def store_passwords(username, password, url, app_name):
     try:

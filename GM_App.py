@@ -1,6 +1,5 @@
 import menu
 
-# đang bị hư phần serect, xem thêm tại file serect.py
 if menu.login() == True:
     while True:
         choice = menu.menu()

@@ -101,7 +101,7 @@ def create_database():
     try:
         connection = connectDB()
         cursor = connection.cursor()
-        create_query = """CREATE TABLE account(
+        create_query = """CREATE TABLE IF NOT EXISTS account(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             UserName TEXT NOT NULL,
             Password TEXT NOT NULL,
@@ -129,17 +129,16 @@ def store_passwords(username, password, url, app_name):
     except (Exception, sqlite3.Error) as error:
         print(error)
 
-
 def find_password(app_name):
     try:
         if checkExists(app_name) == True:
             result = get_AppName(app_name)
             if len(result) > 1:
                 list_user = get_UserName(app_name)
-                i = 0
+                index_user= 0
                 for username in list_user:
-                    i += 1
-                    print(i, '-', username)
+                    index_user+= 1
+                    print(index_user, '-', username)
                 fi_user = int(input('Enter user you want to find:'))
                 for tmpuser in list_user:
                     while True:
@@ -157,7 +156,6 @@ def find_password(app_name):
     except(Exception, sqlite3.Error) as error:
         print(error)
 
-
 def delete_password(app_name):
     try:
         if checkExists(app_name) == True:
@@ -166,10 +164,10 @@ def delete_password(app_name):
             list_app = get_AppName(app_name)
             if len(list_app) > 1:
                 list_user = get_UserName(app_name)
-                i = 0
+                index_user = 0
                 for username in list_user:
-                    i += 1
-                    print(i, '-', username)
+                    index_user+= 1
+                    print(index_user, '-', username)
                 del_user = int(input('Enter user you want to remove:'))    
                 for tmpuser in list_user:
                     if del_user <= len(list_user):
@@ -197,9 +195,9 @@ def All_App():
         result = cursor.fetchall()
         if len(result) == 0:
             print('There is no App Stored in Database !!')
-        i = 0
+        index_app= 0
         for app in result:
-            i += 1
-            print(i, '-', app[0], '-', app[1])
+            index_app+= 1
+            print(index_app, '-', app[0], '-', app[1])
     except(Exception, sqlite3.Error) as error:
         print(error)
